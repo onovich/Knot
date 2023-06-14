@@ -48,6 +48,42 @@ namespace MortiseFrame.Knot.Test {
             Assert.IsFalse(Intersect2DUtil.IsIntersectAABB_OBB(aabb2, obb2, 0));
         }
 
+        [Test]
+        public void TestIsIntersectAABB_AABB_Epsilon() {
+            // Case: Two AABBs are just touching each other
+            AABB a = new AABB(new Vector2(0, 0), new Vector2(1, 1));
+            AABB b = new AABB(new Vector2(1, 1), new Vector2(2, 2));
+            Assert.IsFalse(Intersect2DUtil.IsIntersectAABB_AABB(a, b, float.Epsilon));
+            Assert.IsTrue(Intersect2DUtil.IsIntersectAABB_AABB(a, b, -float.Epsilon));
+        }
+
+        [Test]
+        public void TestIsIntersectAABB_Circle_Epsilon() {
+            // Case: Circle is just touching the AABB
+            AABB aabb = new AABB(new Vector2(0, 0), new Vector2(2, 2));
+            Circle circle = new Circle(new Vector2(3, 1), 1);
+            Assert.IsFalse(Intersect2DUtil.IsIntersectAABB_Circle(aabb, circle, 0.1f));
+            Assert.IsTrue(Intersect2DUtil.IsIntersectAABB_Circle(aabb, circle, -0.1f));
+        }
+
+        [Test]
+        public void TestIsIntersectAABB_OBB_Epsilon() {
+            // Case: OBB is just touching the AABB
+            AABB aabb = new AABB(new Vector2(0, 0), new Vector2(1, 1));
+            OBB obb = new OBB(new Vector2(1.5f, 0.5f), new Vector2(1, 1), 0);
+            Assert.IsFalse(Intersect2DUtil.IsIntersectAABB_OBB(aabb, obb, 0.1f));
+            Assert.IsTrue(Intersect2DUtil.IsIntersectAABB_OBB(aabb, obb, -0.1f));
+        }
+
+        [Test]
+        public void TestIsIntersectAABB_OBB_Epsilon_Angle() {
+            // Case: OBB is just touching the AABB
+            AABB aabb = new AABB(new Vector2(0, 0), new Vector2(1, 1));
+            OBB obb = new OBB(new Vector2(1.59f, 1.59f), new Vector2(1, 1), 0);
+            Assert.IsFalse(Intersect2DUtil.IsIntersectAABB_OBB(aabb, obb, 0.1f));
+            Assert.IsTrue(Intersect2DUtil.IsIntersectAABB_OBB(aabb, obb, -0.1f));
+        }
+
     }
 
 }

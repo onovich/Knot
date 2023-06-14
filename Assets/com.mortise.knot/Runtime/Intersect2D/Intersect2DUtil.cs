@@ -7,29 +7,23 @@ namespace MortiseFrame.Knot {
 
         public static bool IsIntersectAABB_AABB(AABB a, AABB b, float epsilon) {
 
-            if (a.Min.x > b.Max.x + epsilon || a.Max.x < b.Min.x - epsilon) {
-                return false;
-            }
+            var res = ((b.Max.y - a.Min.y > epsilon)
+                && (a.Max.y - b.Min.y > epsilon)
+                && (b.Max.x - a.Min.x > epsilon)
+                && (a.Max.x - b.Min.x > epsilon));
 
-            if (a.Min.y > b.Max.y + epsilon || a.Max.y < b.Min.y - epsilon) {
-                return false;
-            }
-
-            return true;
+            return res;
 
         }
 
         public static bool IsIntersectAABB_Circle(AABB aabb, Circle circle, float epsilon) {
 
-            Vector2 closestPoint = new Vector2(
-                Mathf.Clamp(circle.Center.x, aabb.Min.x, aabb.Max.x),
-                Mathf.Clamp(circle.Center.y, aabb.Min.y, aabb.Max.y)
-            );
+            var i = aabb.GetCenter() - circle.Center;
+            var v = Vector2.Max(i, -i);
+            var diff = Vector2.Max(v - aabb.GetSize() * 0.5f, Vector2.zero);
+            var res = circle.Radius * circle.Radius - diff.sqrMagnitude > epsilon;
 
-            float distanceSquared = (circle.Center - closestPoint).sqrMagnitude;
-            float radiusSquared = (circle.Radius + epsilon) * (circle.Radius + epsilon);
-
-            return distanceSquared <= radiusSquared;
+            return res;
 
         }
 
@@ -52,11 +46,8 @@ namespace MortiseFrame.Knot {
 
         public static bool ProjectionsOverlap((float Min, float Max) a, (float Min, float Max) b, float epsilon) {
 
-            if (a.Max < b.Min - epsilon || a.Min > b.Max + epsilon) {
-                return false;
-            }
-
-            return true;
+            var res = b.Max - a.Min > epsilon && a.Max - b.Min > epsilon;
+            return res;
 
         }
 
