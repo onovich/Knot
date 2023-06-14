@@ -33,25 +33,31 @@ namespace MortiseFrame.Knot {
 
         }
 
-        public static bool IsIntersectAABB_OBB(AABB aabb, OBB obb) {
-            
+        public static bool IsIntersectAABB_OBB(AABB aabb, OBB obb, float epsilon) {
+
             Vector2[] obbAxes = obb.GetAxes();
 
             for (int i = 0; i < obbAxes.Length; i++) {
                 (float Min, float Max) projectionA = aabb.ProjectOntoAxis(obbAxes[i]);
                 (float Min, float Max) projectionB = obb.ProjectOntoAxis(obbAxes[i]);
 
-                if (!ProjectionsOverlap(projectionA, projectionB)) {
+                if (!ProjectionsOverlap(projectionA, projectionB, epsilon)) {
                     return false;
                 }
             }
 
             return true;
+
         }
 
+        public static bool ProjectionsOverlap((float Min, float Max) a, (float Min, float Max) b, float epsilon) {
 
-        public static bool ProjectionsOverlap((float Min, float Max) a, (float Min, float Max) b) {
-            return a.Min <= b.Max && b.Min <= a.Max;
+            if (a.Max < b.Min - epsilon || a.Min > b.Max + epsilon) {
+                return false;
+            }
+
+            return true;
+
         }
 
     }

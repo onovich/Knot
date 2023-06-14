@@ -40,12 +40,12 @@ namespace MortiseFrame.Knot.Test {
             // Case 1: OBB is inside AABB
             AABB aabb1 = new AABB(new Vector2(0, 0), new Vector2(3, 3));
             OBB obb1 = new OBB(new Vector2(1.5f, 1.5f), new Vector2(1, 1), 0);
-            Assert.IsTrue(Intersect2DUtil.IsIntersectAABB_OBB(aabb1, obb1));
+            Assert.IsTrue(Intersect2DUtil.IsIntersectAABB_OBB(aabb1, obb1, 0));
 
             // Case 2: OBB is outside AABB
             AABB aabb2 = new AABB(new Vector2(0, 0), new Vector2(1, 1));
             OBB obb2 = new OBB(new Vector2(3, 3), new Vector2(1, 1), 0);
-            Assert.IsFalse(Intersect2DUtil.IsIntersectAABB_OBB(aabb2, obb2));
+            Assert.IsFalse(Intersect2DUtil.IsIntersectAABB_OBB(aabb2, obb2, 0));
         }
 
     }
