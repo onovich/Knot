@@ -1,0 +1,16 @@
+{
+    "name": "MortiseFrame.Knot.Sample",
+    "rootNamespace": "",
+    "references": [
+        "GUID:a8c89cb741acd6c4fb0a2cfbab7580dc"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
