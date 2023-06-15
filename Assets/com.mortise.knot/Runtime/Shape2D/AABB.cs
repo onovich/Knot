@@ -33,9 +33,25 @@ namespace MortiseFrame.Knot.Shape2D {
         }
 
         public (float Min, float Max) ProjectOntoAxis(Vector2 axis) {
-            float min = Vector2.Dot(this.Min, axis);
-            float max = Vector2.Dot(this.Max, axis);
-            return (Mathf.Min(min, max), Mathf.Max(min, max));
+            Vector2[] vertices = new Vector2[4];
+            vertices[0] = this.Min;
+            vertices[1] = new Vector2(this.Min.x, this.Max.y);
+            vertices[2] = this.Max;
+            vertices[3] = new Vector2(this.Max.x, this.Min.y);
+
+            float min = Vector2.Dot(vertices[0], axis);
+            float max = min;
+
+            for (int i = 1; i < vertices.Length; i++) {
+                float dotProduct = Vector2.Dot(vertices[i], axis);
+                if (dotProduct < min) {
+                    min = dotProduct;
+                } else if (dotProduct > max) {
+                    max = dotProduct;
+                }
+            }
+
+            return (min, max);
         }
 
         public Vector2[] GetAxis() {

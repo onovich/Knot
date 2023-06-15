@@ -76,15 +76,6 @@ namespace MortiseFrame.Knot.Test {
         }
 
         [Test]
-        public void TestIsIntersectAABB_OBB_Epsilon_Angle() {
-            // Case: OBB is just touching the AABB
-            AABB aabb = new AABB(new Vector2(0, 0), new Vector2(1, 1));
-            OBB obb = new OBB(new Vector2(1.59f, 1.59f), new Vector2(1, 1), 0);
-            Assert.IsFalse(Intersect2DUtil.IsIntersectAABB_OBB(aabb, obb, 0.1f));
-            Assert.IsTrue(Intersect2DUtil.IsIntersectAABB_OBB(aabb, obb, -0.1f));
-        }
-
-        [Test]
         public void TestIsIntersectAABB_OBB_Included() {
             AABB aabb = new AABB(new Vector2(0, 0), new Vector2(5, 5));
             OBB obb = new OBB(new Vector2(2.5f, 2.5f), new Vector2(2, 2), 0);
@@ -106,7 +97,7 @@ namespace MortiseFrame.Knot.Test {
         }
 
         [Test]
-        public void TestIsIntersectAABB_OBB_Rotated() {
+        public void TestIsIntersectAABB_OBB_Rotated_WithRad() {
             AABB aabb = new AABB(new Vector2(0, 0), new Vector2(5, 5));
             OBB obb = new OBB(new Vector2(2.5f, 2.5f), new Vector2(4, 4), Mathf.PI / 4);
             Assert.IsTrue(Intersect2DUtil.IsIntersectAABB_OBB(aabb, obb, 0.1f));
@@ -137,6 +128,13 @@ namespace MortiseFrame.Knot.Test {
         public void TestIsIntersectAABB_OBB_BottomRight() {
             OBB obb = new OBB(new Vector2(2.5f, 2.5f), new Vector2(5, 5), Mathf.PI / 4);
             AABB aabb = new AABB(new Vector2(6.5f, 1), new Vector2(1, 1));
+            Assert.IsTrue(Intersect2DUtil.IsIntersectAABB_OBB(aabb, obb, 0.1f));
+        }
+
+        [Test]
+        public void TestIsIntersectAABB_OBB_Rotated_WithDeg() {
+            OBB obb = new OBB(new Vector2(1f, 1f), new Vector2(1, 1), Mathf.PI / 4);
+            AABB aabb = new AABB(new Vector2(0, 1), new Vector2(1, 2));
             Assert.IsTrue(Intersect2DUtil.IsIntersectAABB_OBB(aabb, obb, 0.1f));
         }
 

@@ -29,6 +29,8 @@ namespace MortiseFrame.Knot.Shape2D {
             this.radAngle = radAngle;
             this.axisX = new Vector2(Mathf.Cos(radAngle), Mathf.Sin(radAngle));
             this.axisY = new Vector2(-axisX.y, axisX.x);
+            this.axisX.Normalize();
+            this.axisY.Normalize();
             var vertices = new Vector2[4];
             vertices[0] = center + axisX * size.x * 0.5f + axisY * size.y * 0.5f;
             vertices[1] = center - axisX * size.x * 0.5f + axisY * size.y * 0.5f;
