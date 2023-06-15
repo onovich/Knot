@@ -84,6 +84,62 @@ namespace MortiseFrame.Knot.Test {
             Assert.IsTrue(Intersect2DUtil.IsIntersectAABB_OBB(aabb, obb, -0.1f));
         }
 
+        [Test]
+        public void TestIsIntersectAABB_OBB_Included() {
+            AABB aabb = new AABB(new Vector2(0, 0), new Vector2(5, 5));
+            OBB obb = new OBB(new Vector2(2.5f, 2.5f), new Vector2(2, 2), 0);
+            Assert.IsTrue(Intersect2DUtil.IsIntersectAABB_OBB(aabb, obb, 0.1f));
+        }
+
+        [Test]
+        public void TestIsIntersectAABB_OBB_Outside() {
+            AABB aabb = new AABB(new Vector2(0, 0), new Vector2(1, 1));
+            OBB obb = new OBB(new Vector2(3, 3), new Vector2(1, 1), 0);
+            Assert.IsFalse(Intersect2DUtil.IsIntersectAABB_OBB(aabb, obb, 0.1f));
+        }
+
+        [Test]
+        public void TestIsIntersectAABB_OBB_Partial() {
+            AABB aabb = new AABB(new Vector2(0, 0), new Vector2(5, 5));
+            OBB obb = new OBB(new Vector2(4.5f, 2.5f), new Vector2(2, 2), 0);
+            Assert.IsTrue(Intersect2DUtil.IsIntersectAABB_OBB(aabb, obb, 0.1f));
+        }
+
+        [Test]
+        public void TestIsIntersectAABB_OBB_Rotated() {
+            AABB aabb = new AABB(new Vector2(0, 0), new Vector2(5, 5));
+            OBB obb = new OBB(new Vector2(2.5f, 2.5f), new Vector2(4, 4), Mathf.PI / 4);
+            Assert.IsTrue(Intersect2DUtil.IsIntersectAABB_OBB(aabb, obb, 0.1f));
+        }
+
+        [Test]
+        public void TestIsIntersectAABB_OBB_TopLeft() {
+            OBB obb = new OBB(new Vector2(2.5f, 2.5f), new Vector2(5, 5), Mathf.PI / 4);
+            AABB aabb = new AABB(new Vector2(-1.5f, 4), new Vector2(1, 1));
+            Assert.IsTrue(Intersect2DUtil.IsIntersectAABB_OBB(aabb, obb, 0.1f));
+        }
+
+        [Test]
+        public void TestIsIntersectAABB_OBB_TopRight() {
+            OBB obb = new OBB(new Vector2(2.5f, 2.5f), new Vector2(5, 5), Mathf.PI / 4);
+            AABB aabb = new AABB(new Vector2(6.5f, 4), new Vector2(1, 1));
+            Assert.IsTrue(Intersect2DUtil.IsIntersectAABB_OBB(aabb, obb, 0.1f));
+        }
+
+        [Test]
+        public void TestIsIntersectAABB_OBB_BottomLeft() {
+            OBB obb = new OBB(new Vector2(2.5f, 2.5f), new Vector2(5, 5), Mathf.PI / 4);
+            AABB aabb = new AABB(new Vector2(-1.5f, 1), new Vector2(1, 1));
+            Assert.IsTrue(Intersect2DUtil.IsIntersectAABB_OBB(aabb, obb, 0.1f));
+        }
+
+        [Test]
+        public void TestIsIntersectAABB_OBB_BottomRight() {
+            OBB obb = new OBB(new Vector2(2.5f, 2.5f), new Vector2(5, 5), Mathf.PI / 4);
+            AABB aabb = new AABB(new Vector2(6.5f, 1), new Vector2(1, 1));
+            Assert.IsTrue(Intersect2DUtil.IsIntersectAABB_OBB(aabb, obb, 0.1f));
+        }
+
     }
 
 }
