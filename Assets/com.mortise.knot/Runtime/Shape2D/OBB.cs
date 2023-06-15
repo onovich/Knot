@@ -45,12 +45,10 @@ namespace MortiseFrame.Knot.Shape2D {
             return Mathf.Abs(localX) <= size.x * 0.5f && Mathf.Abs(localY) <= size.y * 0.5f;
         }
 
-        public Vector2[] GetAxes() {
-            Vector2[] axes = new Vector2[4];
+        public Vector2[] GetAxis() {
+            Vector2[] axes = new Vector2[2];
             axes[0] = this.axisX;
             axes[1] = this.axisY;
-            axes[2] = new Vector2(1, 0);
-            axes[3] = new Vector2(0, 1);
             return axes;
         }
 

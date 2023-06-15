@@ -38,6 +38,13 @@ namespace MortiseFrame.Knot.Shape2D {
             return (Mathf.Min(min, max), Mathf.Max(min, max));
         }
 
+        public Vector2[] GetAxis() {
+            Vector2[] axes = new Vector2[2];
+            axes[0] = new Vector2(1, 0);
+            axes[1] = new Vector2(0, 1);
+            return axes;
+        }
+
     }
 
 }
